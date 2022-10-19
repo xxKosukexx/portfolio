@@ -1,7 +1,13 @@
+import styled from "styled-components";
+
 export default function() {
+
+  const Header = styled.div`
+    height: 200px;
+  `;
+
   return (
-    <header>
-      これはヘッダーです。
-    </header>
+    <Header className=''>
+    </Header>
   )
 }
