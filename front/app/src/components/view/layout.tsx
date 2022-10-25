@@ -7,18 +7,24 @@ import type { ReactNode } from "react";
 
 export default function Layout({ children }: {children: ReactNode}) {
   const Contents = styled.div`
+    max-width: 800px;
+    ${tw`w-full`};
+  `;
+
+  const Main = styled.main`
     min-height: 800px;
+    background-color: rgb(241 245 249);
     ${tw`w-full`};
   `;
 
   return (
     <div className=''>
       <Header />
-      <main>
+      <Main>
         <Contents>
           {children}
         </Contents>
-      </main>
+      </Main>
       <Footer />
     </div>
   )
