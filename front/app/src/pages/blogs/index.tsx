@@ -27,7 +27,7 @@ export default (props: Props ) => {
   `;
 
   const blogItems: JSX.Element[] = props.blogs.map((blog) =>
-    <BlogContents key="{blog.id}" >
+    <BlogContents key={blog.id} >
       <Title>
         { blog.title }
       </Title>
