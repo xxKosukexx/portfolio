@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import tw from 'tailwind.macro';
-import Link from 'next/link'
+import { GetServerSideProps } from 'next';
 
 type Blog = {
   id: number;
@@ -9,10 +9,10 @@ type Blog = {
 }
 
 type Props = {
-  blogs: Blog[];
+  blog: Blog;
 }
 
-export default (props: Props ) => {
+export default (props: Props) => {
   const BlogContents = styled.div`
     min-height: 200px;
     width: 200px;
@@ -27,42 +27,35 @@ export default (props: Props ) => {
   const Body = styled.div`
   `;
 
-  const blogItems: JSX.Element[] = props.blogs.map((blog) =>
+  const blog: Blog = props.blog;
+
+  return (
     <BlogContents key={blog.id} >
       <Title>
-        <Link href={`/blogs/${encodeURIComponent(blog.id)}`}>
-          {blog.title}
-        </Link>
+        {blog.title}
       </Title>
       <Body>
         { blog.body }
       </Body>
     </BlogContents>
-  );
-
-  return (
-      <div>
-        ブログ一覧
-        { blogItems }
-      </div>
   )
 }
 
-export async function getServerSideProps () {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const response = await fetch("http://api:3000/api/blogs", {method: "GET"});
+    const response = await fetch(`http://api:3000/api/blogs/${context.query.id}`, {method: "GET"});
     const json = await response.json();
 
     return {
         props: {
-            blogs: json.data,
+            blog: json.data,
         }
     }
   } catch (e) {
       console.log(e)
       return {
           props: {
-              blogs: [],
+              blog: null,
           }
       }
   }
