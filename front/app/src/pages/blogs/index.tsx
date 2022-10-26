@@ -1,7 +1,17 @@
 import styled from "styled-components";
 import tw from 'tailwind.macro';
 
-export default ({ blogs } ) => {
+type Blog = {
+  id: number;
+  title: string;
+  body: string;
+}
+
+type Props = {
+  blogs: Blog[];
+}
+
+export default (props: Props ) => {
   const BlogContents = styled.div`
     min-height: 200px;
     width: 200px;
@@ -16,7 +26,7 @@ export default ({ blogs } ) => {
   const Body = styled.div`
   `;
 
-  const blogItems = blogs.map((blog) =>
+  const blogItems: JSX.Element[] = props.blogs.map((blog) =>
     <BlogContents key="{blog.id}" >
       <Title>
         { blog.title }
